@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>英語音読練習</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 20px; }
+    button { margin: 10px; padding: 10px 20px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h1>📘 英語音読練習（中学生向け）</h1>
+  <p id="english" style="font-size: 24px; font-weight: bold;"></p>
+  <p id="japanese" style="font-size: 20px;"></p>
+  <button onclick="speak()">▶ 音声を聞く</button><br>
+  <button onclick="prev()">← 前へ</button>
+  <button onclick="next()">次へ →</button>
+
+  <script>
+    const phrases = [
+      ["Hello.", "こんにちは。"],
+      ["How are you?", "お元気ですか？"],
+      ["I'm fine, thank you.", "元気です、ありがとう。"],
+      ["What's your name?", "あなたの名前は何ですか？"],
+      ["My name is Ken.", "私の名前はケンです。"],
+      ["Nice to meet you.", "初めまして。"],
+      ["See you tomorrow.", "また明日。"],
+      ["Thank you very much.", "本当にありがとう。"],
+      ["You're welcome.", "どういたしまして。"],
+      ["Excuse me.", "すみません。"],
+      ["I like soccer.", "私はサッカーが好きです。"],
+      ["Do you have any pets?", "ペットは飼っていますか？"],
+      ["I have a dog.", "犬を飼っています。"],
+      ["Let's study together.", "一緒に勉強しましょう。"],
+      ["This is my pencil.", "これは私の鉛筆です。"],
+      ["I want to go to America.", "アメリカに行きたいです。"],
+      ["What time is it?", "今何時ですか？"],
+      ["It's seven thirty.", "7時30分です。"],
+      ["I can play the piano.", "私はピアノが弾けます。"],
+      ["I like reading books.", "本を読むのが好きです。"]
+    ];
+
+    let index = 0;
+
+    function showPhrase() {
+      document.getElementById("english").textContent = phrases[index][0];
+      document.getElementById("japanese").textContent = phrases[index][1];
+    }
+
+    function speak() {
+      const utterance = new SpeechSynthesisUtterance(phrases[index][0]);
+      utterance.lang = "en-US";
+      speechSynthesis.speak(utterance);
+    }
+
+    function next() {
+      index = (index + 1) % phrases.length;
+      showPhrase();
+    }
+
+    function prev() {
+      index = (index - 1 + phrases.length) % phrases.length;
+      showPhrase();
+    }
+
+    // 最初のフレーズを表示
+    showPhrase();
+  </script>
+</body>
+</html>
