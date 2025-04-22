@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>英語音読練習アプリ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: "Helvetica Neue", "Arial", sans-serif;
+      background: #f2f4f6;
+      margin: 0;
+      padding: 0;
+      max-width: 480px;
+      margin: auto;
+      color: #333;
+    }
+
+    header {
+      background: #007bff;
+      color: white;
+      text-align: center;
+      padding: 1em;
+      font-size: 1.2em;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .container {
+      padding: 1em;
+    }
+
+    .sentence-box {
+      background: #fff;
+      margin: 1em 0;
+      padding: 1em;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+
+    .english {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    .japanese {
+      font-size: 1.2em;
+      margin-top: 0.5em;
+    }
+
+    .buttons {
+      text-align: center;
+      margin-top: 1.5em;
+    }
+
+    button {
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      border: none;
+      border-radius: 999px;
+      padding: 0.8em 1.5em;
+      font-size: 1em;
+      color: white;
+      margin: 0.5em;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+
+<body>
+  <header>📘 英語音読練習アプリ</header>
+
+  <div class="container">
+    <div class="sentence-box">
+      <div id="english" class="english"></div>
+      <div id="japanese" class="japanese"></div>
+    </div>
+
+    <div class="buttons">
+      <button onclick="speak()">▶ 音声を聞く</button><br>
+      <button onclick="prev()">← 前へ</button>
+      <button onclick="next()">次へ →</button>
+    </div>
+  </div>
+
+  <script>
+    const phrases = [
+      ["Hello.", "こんにちは。"],
+      ["How are you?", "お元気ですか？"],
+      ["I'm fine, thank you.", "元気です、ありがとう。"],
+      ["What's your name?", "あなたの名前は何ですか？"],
+      ["My name is Ken.", "私の名前はケンです。"],
+      ["Nice to meet you.", "初めまして。"],
+      ["See you tomorrow.", "また明日。"],
+      ["Thank you very much.", "本当にありがとう。"],
+      ["You're welcome.", "どういたしまして。"],
+      ["Excuse me.", "すみません。"],
+      ["I like soccer.", "私はサッカーが好きです。"],
+      ["Do you have any pets?", "ペットは飼っていますか？"],
+      ["I have a dog.", "犬を飼っています。"],
+      ["Let's study together.", "一緒に勉強しましょう。"],
+      ["This is my pencil.", "これは私の鉛筆です。"],
+      ["I want to go to America.", "アメリカに行きたいです。"],
+      ["What time is it?", "今何時ですか？"],
+      ["It's seven thirty.", "7時30分です。"],
+      ["I can play the piano.", "私はピアノが弾けます。"],
+      ["I like reading books.", "本を読むのが好きです。"]
+    ];
+
+    let index = 0;
+
+    function showPhrase() {
+      document.getElementById("english").textContent = phrases[index][0];
+      document.getElementById("japanese").textContent = phrases[index][1];
+    }
+
+    function speak() {
+      const utterance = new SpeechSynthesisUtterance(phrases[index][0]);
+      utterance.lang = "en-US";
+      speechSynthesis.speak(utterance);
+    }
+
+    function next() {
+      index = (index + 1) % phrases.length;
+      showPhrase();
+    }
+
+    function prev() {
+      index = (index - 1 + phrases.length) % phrases.length;
+      showPhrase();
+    }
+
+    // 初期表示
+    showPhrase();
+  </script>
+</body>
+</html>
